@@ -2,227 +2,200 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SHG Registration</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHG Platform - Empowering Rural Businesses</title>
+    <link rel="stylesheet" href="mainPage.css">
 
-  <!-- Link to external CSS -->
-  <link rel="stylesheet" href="style.css" />
+    <style>
+        /* Chatbot Icon */
+        .chatbot-icon {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background-color: #6a0dad;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: 0.3s;
+        }
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+        .chatbot-icon:hover {
+            background-color: #5a0da0;
+        }
 
-  <style>
-    /* Chatbot Icon */
-    .chatbot-icon {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      width: 60px;
-      height: 60px;
-      background-color: #6a0dad;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-      cursor: pointer;
-      transition: 0.3s;
-    }
+        .chatbot-icon img {
+            width: 35px;
+            height: 35px;
+        }
 
-    .chatbot-icon:hover {
-      background-color: #5a0da0;
-    }
+        /* Chatbot Window */
+        .chatbot-window {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 300px;
+            height: 400px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+        }
 
-    .chatbot-icon img {
-      width: 35px;
-      height: 35px;
-    }
+        .chatbot-header {
+            background-color: #6a0dad;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+        }
 
-    /* Chatbot Window */
-    .chatbot-window {
-      position: fixed;
-      bottom: 90px;
-      right: 20px;
-      width: 300px;
-      height: 400px;
-      background-color: white;
-      border-radius: 10px;
-      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-      display: none;
-      flex-direction: column;
-      overflow: hidden;
-    }
+        .chatbot-body {
+            flex: 1;
+            padding: 10px;
+            overflow-y: auto;
+            font-size: 14px;
+        }
 
-    .chatbot-header {
-      background-color: #6a0dad;
-      color: white;
-      padding: 10px;
-      text-align: center;
-      font-size: 18px;
-      font-weight: bold;
-    }
+        .chatbot-input {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid #ddd;
+            background: #f8f8f8;
+        }
 
-    .chatbot-body {
-      flex: 1;
-      padding: 10px;
-      overflow-y: auto;
-      font-size: 14px;
-    }
+        .chatbot-input input {
+            flex: 1;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            outline: none;
+        }
 
-    .chatbot-input {
-      display: flex;
-      padding: 10px;
-      border-top: 1px solid #ddd;
-      background: #f8f8f8;
-    }
+        .chatbot-input button {
+            background-color: #6a0dad;
+            color: white;
+            border: none;
+            padding: 6px 10px;
+            margin-left: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
 
-    .chatbot-input input {
-      flex: 1;
-      padding: 5px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      outline: none;
-    }
-
-    .chatbot-input button {
-      background-color: #6a0dad;
-      color: white;
-      border: none;
-      padding: 6px 10px;
-      margin-left: 5px;
-      cursor: pointer;
-      border-radius: 5px;
-    }
-
-    .chatbot-input button:hover {
-      background-color: #5a0da0;
-    }
-  </style>
+        .chatbot-input button:hover {
+            background-color: #5a0da0;
+        }
+    </style>
 </head>
 
 <body>
+    <!-- Navbar -->
+    <nav>
+        <div class="logo">समृद्धि</div>
+        <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Features</a></li>
+            <li><a href="#">Pricing</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+        <button class="login-btn">Sign In</button>
+    </nav>
 
-  <!-- Top Navbar -->
-  <nav>
-    <div class="logo">समृद्धि</div>
-    <ul class="nav-links">
-      <li><a href="#">Home</a></li>
-      <li><a href="#">Features</a></li>
-      <li><a href="#">Pricing</a></li>
-      <li><a href="#">Contact</a></li>
-    </ul>
-  </nav>
+    <!-- Hero Section -->
+    <header class="hero">
+        <h1>All your SHG needs on <span class="highlight">one platform.</span></h1>
+        <p>Simple, efficient, and accessible for every rural entrepreneur!</p>
+        <div class="cta-buttons">
+            <button class="primary-btn">Register Now - It's Free</button>
+            <button class="secondary-btn">Learn More</button>
+        </div>
+    </header>
 
-  <!-- Main Wrapper for the Image (Left) and Form (Right) -->
-  <div class="wrapper">
-    <!-- Left Column: Image -->
-    <div class="left-col">
-      <img src="image/i6.png" alt="SHG illustration" />
+    <!-- Features Section -->
+    <section class="features">
+        <h2>Empowering SHGs with Digital Solutions</h2>
+        <div class="feature-grid">
+            <div class="feature">
+                <div class="feature-img" style="background-image: url('image/i1.jpeg');"></div>
+                <div class="feature-text">
+                    <h3>Chat with SHGs</h3>
+                    <p>Connect with nearby SHGs and grow together.</p>
+                </div>
+            </div>
+            <div class="feature">
+                <div class="feature-img" style="background-image: url('image/i2.jpeg');"></div>
+                <div class="feature-text">
+                    <h3>Peer-to-Peer Loans</h3>
+                    <p>Borrow from nearby SHGs for better financial support.</p>
+                </div>
+            </div>
+            <div class="feature">
+                <div class="feature-img" style="background-image: url('image/i3.jpeg');"></div>
+                <div class="feature-text">
+                    <h3>Smart Business Insights</h3>
+                    <p>Track expenses and get AI-driven expansion tips.</p>
+                </div>
+            </div>
+            <div class="feature">
+                <div class="feature-img" style="background-image: url('image/i4.jpeg');"></div>
+                <div class="feature-text">
+                    <h3>Govt Schemes</h3>
+                    <p>Discover government subsidies and funding opportunities.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Chatbot Icon -->
+    <div class="chatbot-icon" onclick="toggleChatbot()">
+        <img src="chatbot-icon.png" alt="Chatbot">
     </div>
 
-    <!-- Right Column: Registration Form -->
-    <div class="right-col">
-      <div class="form-container">
-        <h2 class="brand-logo">समृद्धि</h2>
-
-        <form id="shg-form">
-          <h3>Basic Information</h3>
-          <div class="form-row">
-            <div class="input-group">
-              <label for="shg-name">SHG Name</label>
-              <input type="text" id="shg-name" placeholder="Enter SHG Name" required />
-            </div>
-            <div class="input-group">
-              <label for="leader-name">SHG Leader’s Name</label>
-              <input type="text" id="leader-name" placeholder="Enter Leader’s Name" required />
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="input-group">
-              <label for="contact-number">Contact Number</label>
-              <input type="tel" id="contact-number" placeholder="WhatsApp Enabled Number" required />
-            </div>
-            <div class="input-group">
-              <label for="email">Email ID (Optional)</label>
-              <input type="email" id="email" placeholder="Enter Email (Optional)" />
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="input-group">
-              <label for="password">Password</label>
-              <input type="password" id="password" placeholder="Enter Password" required />
-            </div>
-            <div class="input-group">
-              <label for="confirm-password">Confirm Password</label>
-              <input type="password" id="confirm-password" placeholder="Enter Password" required />
-            </div>
-          </div>
-
-          <h3>Financial &amp; Business Information</h3>
-          <div class="form-row">
-            <div class="input-group">
-              <label for="business-type">Type of Business</label>
-              <select id="business-type" required>
-                <option value="">Select Business Type</option>
-                <option value="Agriculture">Agriculture</option>
-                <option value="Handicrafts">Handicrafts</option>
-                <option value="Dairy">Dairy</option>
-                <option value="Textiles">Textiles</option>
-                <option value="Other">Other</option>
-              </select>
-            </div>
-            <div class="input-group">
-              <label for="members-count">Number of Members</label>
-              <input type="number" id="members-count" placeholder="Enter Number of Members" required min="1" />
-            </div>
-          </div>
-
-          <button type="submit">Register SHG</button>
-        </form>
-      </div>
+    <!-- Chatbot Window -->
+    <div class="chatbot-window" id="chatbot">
+        <div class="chatbot-header">AI Chatbot</div>
+        <div class="chatbot-body">
+            <p>Hello! How can I help you?</p>
+        </div>
+        <div class="chatbot-input">
+            <input type="text" id="chat-input" placeholder="Type a message...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
     </div>
-  </div>
 
-  <!-- AI Chatbot Icon -->
-  <div class="chatbot-icon" onclick="toggleChatbot()">
-    <img src="image/chatbot.png" alt="Chatbot" />
-  </div>
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 समृद्धि | Empowering Rural Entrepreneurs</p>
+    </footer>
 
-  <!-- Chatbot Window -->
-  <div class="chatbot-window" id="chatbot">
-    <div class="chatbot-header">AI Chatbot</div>
-    <div class="chatbot-body">
-      <p>Hello! How can I help you?</p>
-    </div>
-    <div class="chatbot-input">
-      <input type="text" id="chat-input" placeholder="Type a message..." />
-      <button onclick="sendMessage()">Send</button>
-    </div>
-  </div>
+    <!-- JavaScript for Chatbot -->
+    <script>
+        function toggleChatbot() {
+            var chatbot = document.getElementById("chatbot");
+            chatbot.style.display = chatbot.style.display === "flex" ? "none" : "flex";
+        }
 
-  <!-- JavaScript for Chatbot -->
-  <script>
-    function toggleChatbot() {
-      var chatbot = document.getElementById("chatbot");
-      chatbot.style.display = chatbot.style.display === "flex" ? "none" : "flex";
-    }
-
-    function sendMessage() {
-      var input = document.getElementById("chat-input");
-      var message = input.value;
-      if (message.trim() !== "") {
-        var chatBody = document.querySelector(".chatbot-body");
-        var newMessage = document.createElement("p");
-        newMessage.textContent = "You: " + message;
-        chatBody.appendChild(newMessage);
-        input.value = "";
-        chatBody.scrollTop = chatBody.scrollHeight;
-      }
-    }
-  </script>
+        function sendMessage() {
+            var input = document.getElementById("chat-input");
+            var message = input.value;
+            if (message.trim() !== "") {
+                var chatBody = document.querySelector(".chatbot-body");
+                var newMessage = document.createElement("p");
+                newMessage.textContent = "You: " + message;
+                chatBody.appendChild(newMessage);
+                input.value = "";
+                chatBody.scrollTop = chatBody.scrollHeight;
+            }
+        }
+    </script>
 </body>
 
 </html>
