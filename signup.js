@@ -73,6 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
             longitude: localStorage.getItem("longitude") || "",
             lendBorrow: "None", 
             amount: -1,
+            applicants: [],
         };
 
         // Validate password constraints
