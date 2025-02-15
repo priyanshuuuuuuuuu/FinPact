@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>View SHG Transactions</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      text-align: center;
+      padding: 20px;
+    }
+    h2 {
+      color: #333;
+    }
+    .container {
+      background: #fff;
+      padding: 20px;
+      max-width: 800px;
+      margin: auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border-radius: 8px;
+    }
+    table {
+      margin: 20px auto;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    table, th, td {
+      border: 1px solid #ccc;
+    }
+    th, td {
+      padding: 8px;
+      text-align: center;
+    }
+    th {
+      background: #eaeaea;
+    }
+    .nav-btn {
+      background: #007bff;
+      color: #fff;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    .nav-btn:hover {
+      background: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <h2>Your Transaction History</h2>
+  <div class="container">
+    <!-- Navigation Button -->
+    <button class="nav-btn" onclick="window.location.href='log_transactions.html'">
+      Log New Transaction
+    </button>
+    <table id="transactionsTable">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Date</th>
+          <th>Type</th>
+          <th>Payment Mode</th>
+          <th>Nature</th>
+          <th>Counterparty</th>
+          <th>Amount</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Transactions will be inserted here -->
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    // Retrieve transactions from localStorage
+    let storedTransactions = localStorage.getItem("transactions");
+
+    if (storedTransactions) {
+      let transactions = JSON.parse(storedTransactions);
+
+      // Sort transactions by date (newest first)
+      transactions.sort((a, b) => {
+        return new Date(b.date) - new Date(a.date);
+      });
+
+      const tableBody = document.getElementById("transactionsTable").querySelector("tbody");
+
+      // Loop over transactions and add them as table rows
+      transactions.forEach((txn) => {
+        const row = document.createElement("tr");
+
+        const fields = [
+          "transactionId",
+          "date",
+          "type",
+          "paymentMode",
+          "nature",
+          "counterparty",
+          "amount",
+          "description"
+        ];
+
+        fields.forEach(field => {
+          const cell = document.createElement("td");
+          cell.textContent = txn[field] || "";
+          row.appendChild(cell);
+        });
+
+        tableBody.appendChild(row);
+      });
+    } else {
+      // No transactions saved yet.
+      document.getElementById("transactionsTable").querySelector("tbody").innerHTML = "<tr><td colspan='8'>No transactions found.</td></tr>";
+    }
+  </script>
+</body>
+</html>

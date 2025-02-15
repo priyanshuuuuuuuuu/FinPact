@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SHG Transaction Logger</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      text-align: center;
+      padding: 20px;
+    }
+    .container {
+      background: #fff;
+      padding: 20px;
+      max-width: 400px;
+      margin: auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+    h2, h3 {
+      color: #333;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+    button {
+      background: #28a745;
+      color: #fff;
+      padding: 10px;
+      margin-top: 15px;
+      border: none;
+      width: 100%;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    button:hover {
+      background: #218838;
+    }
+    .nav-btn {
+      background: #007bff;
+      margin-top: 10px;
+    }
+    .nav-btn:hover {
+      background: #0056b3;
+    }
+    table {
+      margin: 20px auto;
+      border-collapse: collapse;
+      width: 90%;
+    }
+    table, th, td {
+      border: 1px solid #ccc;
+    }
+    th, td {
+      padding: 8px;
+    }
+  </style>
+</head>
+<body>
+  <h2>SHG Transaction Logger</h2>
+  <div class="container">
+    <!-- Navigation Button -->
+    <button class="nav-btn" onclick="window.location.href='view_transactions.html'">
+      View Transactions
+    </button>
+
+    <!-- Transaction ID (optional, auto-generated if blank) -->
+    <label for="transactionId">Transaction ID:</label>
+    <input type="text" id="transactionId" placeholder="Optional or Auto-generated" />
+
+    <!-- Date -->
+    <label for="date">Date:</label>
+    <input type="date" id="date" required />
+
+    <!-- Transaction Type -->
+    <label for="type">Transaction Type:</label>
+    <select id="type">
+      <option value="Income">Income</option>
+      <option value="Expense">Expense</option>
+      <option value="Savings">Savings</option>
+      <option value="Loan">Loan</option>
+      <option value="Transfer">Transfer</option>
+    </select>
+
+    <!-- Payment Mode -->
+    <label for="paymentMode">Payment Mode:</label>
+    <select id="paymentMode">
+      <option value="Cash">Cash</option>
+      <option value="Bank Transfer">Bank Transfer</option>
+      <option value="Cheque">Cheque</option>
+      <option value="Online Payment">Online Payment</option>
+    </select>
+
+    <!-- Transaction Nature -->
+    <label for="nature">Transaction Nature:</label>
+    <select id="nature" onchange="updateCounterpartyLabel()">
+      <option value="" disabled selected>Select one</option>
+      <option value="spent">Spent (Money Out)</option>
+      <option value="gained">Gained (Money In)</option>
+    </select>
+
+    <!-- Counterparty (shown based on nature) -->
+    <div id="counterpartyDiv" style="display:none;">
+      <label id="counterpartyLabel" for="counterparty">Counterparty:</label>
+      <input type="text" id="counterparty" placeholder="" />
+    </div>
+
+    <!-- Amount -->
+    <label for="amount">Amount (must be positive):</label>
+    <input type="number" id="amount" required min="0.01" step="0.01" />
+
+    <!-- Description (optional) -->
+    <label for="description">Description (optional):</label>
+    <textarea id="description" rows="3"></textarea>
+
+    <button onclick="saveTransaction()">Save Transaction</button>
+  </div>
+
+  <div class="container">
+    <h3>Saved Transactions (Local Preview)</h3>
+    <table id="transactionsTable">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Date</th>
+          <th>Type</th>
+          <th>Payment Mode</th>
+          <th>Nature</th>
+          <th>Counterparty</th>
+          <th>Amount</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Transactions will appear here -->
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    // Array to store transactions (load from localStorage if available)
+    let transactions = JSON.parse(localStorage.getItem("transactions")) || [];
+
+    // Update the counterparty field label based on the selected transaction nature
+    function updateCounterpartyLabel() {
+      const nature = document.getElementById("nature").value;
+      const counterpartyDiv = document.getElementById("counterpartyDiv");
+      const counterpartyLabel = document.getElementById("counterpartyLabel");
+
+      if (nature === "spent") {
+        counterpartyLabel.textContent = "Spent To (Receiver):";
+        counterpartyDiv.style.display = "block";
+      } else if (nature === "gained") {
+        counterpartyLabel.textContent = "Received From (Sender):";
+        counterpartyDiv.style.display = "block";
+      } else {
+        counterpartyDiv.style.display = "none";
+      }
+    }
+
+    function saveTransaction() {
+      // Get input values
+      const transactionId = document.getElementById("transactionId").value || generateTransactionId();
+      const date = document.getElementById("date").value;
+      const type = document.getElementById("type").value;
+      const paymentMode = document.getElementById("paymentMode").value;
+      const nature = document.getElementById("nature").value;
+      const counterparty = document.getElementById("counterparty").value;
+      const amount = parseFloat(document.getElementById("amount").value);
+      const description = document.getElementById("description").value;
+
+      // Validate required fields
+      if (!date || !nature || isNaN(amount) || amount <= 0) {
+        alert("Please fill in all required fields and ensure amount is positive.");
+        return;
+      }
+      
+      // For transactions that involve a counterparty, ensure it's provided
+      if ((nature === "spent" || nature === "gained") && !counterparty) {
+        alert("Please provide the counterparty information.");
+        return;
+      }
+
+      // Create a transaction object
+      const transaction = { 
+        transactionId, 
+        date, 
+        type, 
+        paymentMode, 
+        nature, 
+        counterparty: counterparty || "N/A", 
+        amount, 
+        description 
+      };
+
+      // Add the transaction to the array
+      transactions.push(transaction);
+
+      // Save the updated transactions array to localStorage
+      localStorage.setItem("transactions", JSON.stringify(transactions));
+
+      // Update the table display
+      updateTransactionTable();
+
+      // Clear input fields
+      document.getElementById("transactionId").value = "";
+      document.getElementById("date").value = "";
+      document.getElementById("type").selectedIndex = 0;
+      document.getElementById("paymentMode").selectedIndex = 0;
+      document.getElementById("nature").selectedIndex = 0;
+      document.getElementById("counterparty").value = "";
+      document.getElementById("counterpartyDiv").style.display = "none";
+      document.getElementById("amount").value = "";
+      document.getElementById("description").value = "";
+
+      alert("Transaction saved!");
+    }
+
+    function updateTransactionTable() {
+      const tableBody = document.getElementById("transactionsTable").querySelector("tbody");
+      tableBody.innerHTML = ""; // Clear previous content
+
+      // Loop over transactions array and create table rows
+      transactions.forEach((txn) => {
+        const row = document.createElement("tr");
+
+        // Create cells for each field
+        const fields = ["transactionId", "date", "type", "paymentMode", "nature", "counterparty", "amount", "description"];
+        fields.forEach(field => {
+          const cell = document.createElement("td");
+          cell.textContent = txn[field];
+          row.appendChild(cell);
+        });
+
+        tableBody.appendChild(row);
+      });
+    }
+
+    // Generate a random transaction ID if not provided
+    function generateTransactionId() {
+      return 'TXN-' + Math.floor(Math.random() * 1000000);
+    }
+
+    // Load transactions when the page loads
+    updateTransactionTable();
+  </script>
+</body>
+</html>
