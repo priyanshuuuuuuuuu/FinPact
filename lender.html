@@ -13,80 +13,84 @@
     rel="stylesheet"
   />
   <style>
-    /* Interchange Left and Right Columns */
-.wrapper {
-  display: flex;
-  min-height: calc(100vh - 60px);
-  /* Subtract navbar height if you like */
-}
+    /* Full-width layout */
+    .wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 2rem;
+      min-height: calc(100vh - 60px); /* Subtract navbar height */
+    }
 
-/* Left Column (Now for Lenders List) */
-.left-col {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start; /* Align content to the top */
-  padding: 2rem;
-}
+    /* Lenders List Grid Layout */
+    #lenders-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr); /* 3 columns */
+      gap: 1.5rem;
+      width: 100%;
+      max-width: 1200px; /* Adjust max-width as needed */
+    }
 
-/* Right Column (Now for Image) */
-.right-col {
-  flex: 1;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+    .lender-card {
+      background: #fff;
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
 
-.right-col img {
-  width: 80%;
-  height: auto;
-  max-height: 105vh;
-  object-fit: cover;
-  border-radius: 2%;
-}
+    .lender-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
 
-/* Lenders List Styles */
-#lenders-list {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  width: 100%;
-  max-width: 600px;
-}
+    .lender-card h3 {
+      font-size: 1.5rem;
+      color: #6a0dad;
+      margin-bottom: 1rem;
+    }
 
-.lender-card {
-  background: #fff;
-  padding: 1.5rem;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s, box-shadow 0.2s;
-}
+    .lender-card p {
+      font-size: 1rem;
+      color: #555;
+      margin-bottom: 0.5rem;
+    }
 
-.lender-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
+    .lender-card p strong {
+      color: #333;
+    }
 
-.lender-card h3 {
-  font-size: 1.5rem;
-  color: #6a0dad;
-  margin-bottom: 1rem;
-}
+    html, body {
+      overflow: auto;
+    }
 
-.lender-card p {
-  font-size: 1rem;
-  color: #555;
-  margin-bottom: 0.5rem;
-}
+    /* Responsive adjustments */
+    @media (max-width: 992px) {
+      #lenders-list {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns for medium screens */
+      }
+    }
 
-.lender-card p strong {
-  color: #333;
-}
+    @media (max-width: 576px) {
+      #lenders-list {
+        grid-template-columns: 1fr; /* 1 column for small screens */
+      }
+    }
 
-html, body {
-    overflow: auto;
-}
+    .apply-button {
+      background-color: #6a0dad;
+      color: #fff;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.2s;
+    }
+
+    .apply-button:hover {
+        background-color: #5a0a9d;
+    }
   </style>
 </head>
 <body>
@@ -102,22 +106,15 @@ html, body {
   </nav>
 
   <!-- Main Wrapper -->
-  <div class="wrapper">
-    <!-- Left Column: Lenders List -->
-    <div class="left-col">
-      <div class="form-container">
-        <h2 class="brand-logo">Lenders</h2>
+  <div class="wrapper" style="display: flex; justify-content: center; align-items: flex-start; padding: 2rem; min-height: calc(100vh - 60px);">
+    <!-- Lenders List -->
+    <div class="form-container" style="width: 100%; max-width: 1200px;">
+      <h2 class="brand-logo">Lenders</h2>
 
-        <!-- Lenders List -->
-        <div id="lenders-list">
-          <!-- Lenders will be dynamically added here -->
-        </div>
+      <!-- Lenders List -->
+      <div id="lenders-list" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
+        <!-- Lenders will be dynamically added here -->
       </div>
-    </div>
-
-    <!-- Right Column: Image -->
-    <div class="right-col">
-      <img src="image/i6.png" alt="SHG illustration" />
     </div>
   </div>
 
