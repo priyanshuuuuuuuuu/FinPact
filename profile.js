@@ -1,4 +1,14 @@
 document.addEventListener("DOMContentLoaded", function () {
+    // Helper function to safely set text content - moved to top level
+    const setElementText = (id, text) => {
+        const element = document.getElementById(id);
+        if (element) {
+            element.textContent = text;
+        } else {
+            console.warn(`Element with id '${id}' not found`);
+        }
+    };
+
     // Retrieve the logged-in user's contact number
     const loggedInUser = localStorage.getItem("loggedInUser");
 
@@ -16,16 +26,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const user = registrations.find((user) => user.contactNumber === loggedInUser);
 
     if (user) {
-        // Helper function to safely set text content
-        const setElementText = (id, text) => {
-            const element = document.getElementById(id);
-            if (element) {
-                element.textContent = text;
-            } else {
-                console.warn(`Element with id '${id}' not found`);
-            }
-        };
-
         // Display user information
         setElementText("shg-name", user.shgName);
         setElementText("leader-name", user.leaderName);
@@ -68,6 +68,18 @@ document.addEventListener("DOMContentLoaded", function () {
         e.preventDefault();
         console.log("Form submitted!");
 
+        // Get fresh data from localStorage
+        const registrations = JSON.parse(localStorage.getItem("registrations")) || [];
+        const loggedInUser = localStorage.getItem("loggedInUser");
+        
+        // Find the user's index in the registrations array
+        const userIndex = registrations.findIndex((u) => u.contactNumber === loggedInUser);
+        
+        if (userIndex === -1) {
+            console.error("User not found in registrations");
+            return;
+        }
+
         // Collect form data
         const action = document.getElementById("lend-borrow").value;
         const amount = document.getElementById("amount").value;
@@ -75,16 +87,22 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log("Selected action:", action);
         console.log("Entered amount:", amount);
 
-        // Update user's lend/borrow information
-        user.lendBorrow = action;
-        user.amount = amount !== "" ? parseFloat(amount) : -1;
+        // Update user data in the registrations array
+        registrations[userIndex].lendBorrow = action;
+        registrations[userIndex].amount = amount !== "" ? parseFloat(amount) : -1;
 
         // Save updated registrations array to localStorage
         localStorage.setItem("registrations", JSON.stringify(registrations));
 
+        // Update the display
+        setElementText("lend-borrow-status", action);
+        setElementText("lend-borrow-amount", amount !== "" ? `₹${amount}` : "Not specified");
+
+        console.log("Updated registrations:", registrations);
         alert("Lend/Borrow information saved successfully!");
 
-        console.log("Updated user data:", user);
+        // Optionally refresh the page to show updated data
+        // window.location.reload();
     });
 
     // Prefill lend/borrow form if data exists
