@@ -20,8 +20,19 @@ document.addEventListener("DOMContentLoaded", function () {
                 <p><strong>Email:</strong> ${lender.email}</p>
                 <p><strong>Business Type:</strong> ${lender.businessType}</p>
                 <p><strong>Amount:</strong> ₹${lender.amount}</p>
+                <button class="apply-button">Apply</button>
             `;
             lendersList.appendChild(lenderCard);
+        });
+
+        // Add event listeners to all Apply buttons
+        const applyButtons = document.querySelectorAll(".apply-button");
+        applyButtons.forEach((button, index) => {
+            button.addEventListener("click", () => {
+                const selectedLender = lenders[index];
+                alert(`Applied to ${selectedLender.shgName}`);
+                // You can replace the alert with actual logic to handle the application
+            });
         });
     } else {
         // Display a message if no lenders are found
