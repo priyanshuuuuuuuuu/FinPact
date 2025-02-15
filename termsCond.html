@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHG Platform - Empowering Rural Businesses</title>
+    <link rel="stylesheet" href="mainPage.css">
+
+    <style>
+        /* Terms and Conditions Styling */
+        .tnc {
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f8f8;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin: auto;
+            text-align: justify;
+            overflow-y: auto;
+            height: 300px;
+        }
+
+        /* Checkbox and Continue Button */
+        .tnc-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        #agree-checkbox {
+            margin-right: 10px;
+        }
+
+        #continue-btn {
+            background-color: #6a0dad;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: not-allowed;
+            opacity: 0.5;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        #continue-btn.active {
+            cursor: pointer;
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav>
+        <div class="logo">समृद्धि</div>
+        <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Features</a></li>
+            <li><a href="#">Pricing</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+        <button class="login-btn">Sign In</button>
+    </nav>
+
+    <div class="head">
+        <h1>Terms and Conditions</h1>
+    </div>
+    
+    <!-- Terms and Conditions Section -->
+    <div class="tnc">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio...</p>
+        <!-- Add your full terms and conditions text here -->
+    </div>
+
+    <!-- Checkbox and Continue Button -->
+    <div class="tnc-container">
+        <label>
+            <input type="checkbox" id="agree-checkbox" onchange="toggleContinueButton()"> I have read and agree to the Terms and Conditions.
+        </label>
+        <br>
+        <button id="continue-btn" disabled>Continue</button>
+    </div>
+
+    <script>
+        function toggleContinueButton() {
+            var checkbox = document.getElementById("agree-checkbox");
+            var button = document.getElementById("continue-btn");
+
+            if (checkbox.checked) {
+                button.disabled = false;
+                button.classList.add("active");
+            } else {
+                button.disabled = true;
+                button.classList.remove("active");
+            }
+        }
+    </script>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 समृद्धि | Empowering Rural Entrepreneurs</p>
+    </footer>
+
+</body>
+
+</html>
