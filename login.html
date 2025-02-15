@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login - SHG</title>
+  <!-- Link to external CSS -->
+  <link rel="stylesheet" href="signup.css" />
+
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+</head>
+<body>
+  <!-- Top Navbar -->
+  <nav>
+    <div class="logo">समृद्धि</div>
+    <ul class="nav-links">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Features</a></li>
+      <li><a href="#">Pricing</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Main Wrapper for the Image (Left) and Form (Right) -->
+  <div class="wrapper">
+    <!-- Left Column: Image -->
+    <div class="left-col">
+      <img src="image/i6.png" alt="SHG illustration" />
+    </div>
+
+    <!-- Right Column: Login Form -->
+    <div class="right-col">
+      <div class="form-container" style="width: 500px;">
+        <h2 class="brand-logo">समृद्धि</h2>
+
+        <form id="login-form">
+          <h3>Login</h3>
+
+          <!-- Phone Number Input -->
+          <div class="form-row">
+            <div class="input-group">
+              <label for="phone">Phone Number</label>
+              <input
+                type="tel"
+                id="phone"
+                placeholder="Enter Phone Number"
+                required
+              />
+            </div>
+          </div>
+
+          <!-- Password Input -->
+          <div class="form-row">
+            <div class="input-group">
+              <label for="password">Password</label>
+              <input
+                type="password"
+                id="password"
+                placeholder="Enter Password"
+                required
+              />
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit">Login</button>
+
+          <!-- Link to Registration Page -->
+          <p class="register-link" style="margin-top: 15px;">
+            Don't have an account? <a href="signup.html">Register here</a>.
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Link to JavaScript -->
+  <script src="login.js"></script>
+</body>
+</html>
