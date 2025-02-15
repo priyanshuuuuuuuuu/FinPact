@@ -71,6 +71,8 @@ document.addEventListener("DOMContentLoaded", function () {
             membersCount: document.getElementById("members-count").value,
             latitude: localStorage.getItem("latitude") || "",
             longitude: localStorage.getItem("longitude") || "",
+            lendBorrow: "None", 
+            amount: -1,
         };
 
         // Validate password constraints
