@@ -18,7 +18,7 @@
   <nav>
     <div class="logo">समृद्धि</div>
     <ul class="nav-links">
-      <li><a href="#">Home</a></li>
+      <li><a href="mainPage2.html">Home</a></li>
       <li><a href="#">Features</a></li>
       <li><a href="#">Pricing</a></li>
       <li><a href="#">Contact</a></li>
@@ -75,8 +75,11 @@
             </div>
           </div>
 
-          <!-- Submit Button -->
-          <button type="submit" id = "saveButton">Save</button>
+          <!-- Add this right before the closing form tag -->
+          <div style="display: flex; justify-content: space-between; margin-top: 20px;">
+            <button type="submit" id="saveButton">Save</button>
+            <button type="button" onclick="signOut()" style="background-color: #dc3545;">Sign Out</button>
+          </div>
         </form>
       </div>
     </div>
@@ -84,5 +87,13 @@
 
   <!-- Link to JavaScript -->
   <script src="profile.js"></script>
+  <script>
+    function signOut() {
+      // Clear user data from localStorage
+      localStorage.removeItem('loggedInUser');
+      // Redirect to main page
+      window.location.href = 'mainPage.html';
+    }
+  </script>
 </body>
 </html>
