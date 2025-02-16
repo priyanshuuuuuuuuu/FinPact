@@ -74,6 +74,7 @@ document.addEventListener("DOMContentLoaded", function () {
             lendBorrow: "None", 
             amount: -1,
             applicants: [],
+            selectedapplicants: [],
         };
 
         // Validate password constraints
