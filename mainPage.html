@@ -154,19 +154,19 @@
         <ul class="nav-links">
             <li><a href="#">Home</a></li>
             <li><a href="#">Features</a></li>
-            <li><a href="#">Pricing</a></li>
-            <li><a href="#">Contact</a></li>
+            <li><a href="#">View Transactions</a></li>
+            <li><a href="contact.html">Contact</a></li>
         </ul>
-        <button class="login-btn">Sign In</button>
+        <button class="login-btn" onclick="window.location.href = 'login.html'">Sign In</button>
     </nav>
 
     <!-- Hero Section -->
     <header class="hero">
-        <h1>All your SHG needs on <span class="highlight">one platform.</span></h1>
-        <p>Simple, efficient, and accessible for every rural entrepreneur!</p>
+        <h1>बचत ही है समृद्धि का <span class="highlight">मूल मंत्र</span></h1>
+        <p>Smart, digital, and inclusive solutions for every SHG!</p>
         <div class="cta-buttons">
-            <button class="primary-btn">Register Now - It's Free</button>
-            <button class="secondary-btn">Learn More</button>
+            <button class="primary-btn" onclick="window.location.href='signup.html'">Register Now</button>
+            <button class="secondary-btn" onclick = "window.location.href = 'login.html'">Sign In</button>
         </div>
     </header>
 
@@ -206,32 +206,7 @@
     </section>
 
     <!-- AI Chatbot Icon -->
-    <div class="chatbot-icon" onclick="toggleChatbot()">
-        <img src="chatbot-icon.png" alt="Chatbot">
-    </div>
-
-    <!-- Chatbot Window -->
-    <div class="chatbot-window" id="chatbot">
-        <div class="chatbot-header">
-            सुभिक्षा 
-            <button class="close-button" onclick="toggleChatbot()">×</button>
-            <button id="mic-button" style="float: right; background: none; border: none; color: white; margin-right: 30px;">
-                <img src="image/mic.png" alt="Mic" style="width: 24px; height: 24px;">
-            </button>
-        </div>
-        <!-- Add microphone animation container -->
-        <div class="mic-animation" id="mic-animation">
-            <div class="mic-wave"></div>
-            <p style="margin-top: 10px;">Listening...</p>
-        </div>
-        <div class="chatbot-body" id="chat-body">
-            <p>नमस्ते! मैं आपकी कैसे मदद कर सकता हूं?</p>
-        </div>
-        <div class="chatbot-input">
-            <input type="text" id="chat-input" placeholder="Type a message...">
-            <button onclick="sendMessage()">Send</button>
-        </div>
-    </div>
+    
 
     <!-- Footer -->
     <footer>
@@ -240,104 +215,117 @@
 
     <!-- JavaScript for Chatbot -->
     <script>
-        function clearChat() {
-            const chatBody = document.querySelector(".chatbot-body");
-            // Keep only the first welcome message
-            chatBody.innerHTML = "<p>नमस्ते! मैं आपकी कैसे मदद कर सकता हूं?</p>";
-            // Clear input field
-            document.getElementById("chat-input").value = "";
-        }
+        localStorage.clear();
+        fetch("registrations.json")
+        .then(response => response.json()) // Parse the JSON data
+        .then(data => {
+            // Save the data to localStorage
+            localStorage.setItem("registrations", JSON.stringify(data));
+            console.log("Data successfully loaded into localStorage!");
+        })
+        .catch(error => {
+            console.error("Error loading JSON file:", error);
+        });
 
-        function toggleChatbot() {
-            var chatbot = document.getElementById("chatbot");
-            if (chatbot.style.display === "flex") {
-                // When closing the chat
-                chatbot.style.display = "none";
-                clearChat();
-            } else {
-                // When opening the chat
-                chatbot.style.display = "flex";
-                clearChat();
-            }
-        }
 
-        async function sendMessage() {
-            const input = document.getElementById("chat-input");
-            const message = input.value.trim();
+        // function clearChat() {
+        //     const chatBody = document.querySelector(".chatbot-body");
+        //     // Keep only the first welcome message
+        //     chatBody.innerHTML = "<p>नमस्ते! मैं आपकी कैसे मदद कर सकता हूं?</p>";
+        //     // Clear input field
+        //     document.getElementById("chat-input").value = "";
+        // }
+
+        // function toggleChatbot() {
+        //     var chatbot = document.getElementById("chatbot");
+        //     if (chatbot.style.display === "flex") {
+        //         // When closing the chat
+        //         chatbot.style.display = "none";
+        //         clearChat();
+        //     } else {
+        //         // When opening the chat
+        //         chatbot.style.display = "flex";
+        //         clearChat();
+        //     }
+        // }
+
+        // async function sendMessage() {
+        //     const input = document.getElementById("chat-input");
+        //     const message = input.value.trim();
             
-            if (message !== "") {
-                // Add user message to chat
-                appendMessage("You: " + message);
-                input.value = "";
+        //     if (message !== "") {
+        //         // Add user message to chat
+        //         appendMessage("You: " + message);
+        //         input.value = "";
 
-                try {
-                    // Send message to Flask backend
-                    const response = await fetch('http://localhost:5000/chat', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({ message: message })
-                    });
+        //         try {
+        //             // Send message to Flask backend
+        //             const response = await fetch('http://localhost:5000/chat', {
+        //                 method: 'POST',
+        //                 headers: {
+        //                     'Content-Type': 'application/json',
+        //                 },
+        //                 body: JSON.stringify({ message: message })
+        //             });
 
-                    const data = await response.json();
-                    // Add bot response to chat
-                    appendMessage("Bot: " + data.response);
-                } catch (error) {
-                    console.error('Error:', error);
-                    appendMessage("Bot: Sorry, I encountered an error. Please try again.");
-                }
-            }
-        }
+        //             const data = await response.json();
+        //             // Add bot response to chat
+        //             appendMessage("Bot: " + data.response);
+        //         } catch (error) {
+        //             console.error('Error:', error);
+        //             appendMessage("Bot: Sorry, I encountered an error. Please try again.");
+        //         }
+        //     }
+        // }
 
-        function appendMessage(message) {
-            const chatBody = document.querySelector(".chatbot-body");
-            const newMessage = document.createElement("p");
-            newMessage.textContent = message;
-            chatBody.appendChild(newMessage);
-            chatBody.scrollTop = chatBody.scrollHeight;
-        }
+        // function appendMessage(message) {
+        //     const chatBody = document.querySelector(".chatbot-body");
+        //     const newMessage = document.createElement("p");
+        //     newMessage.textContent = message;
+        //     chatBody.appendChild(newMessage);
+        //     chatBody.scrollTop = chatBody.scrollHeight;
+        // }
 
         // Add event listener for Enter key
-        document.getElementById("chat-input").addEventListener("keypress", function(event) {
-            if (event.key === "Enter") {
-                sendMessage();
-            }
-        });
+        // document.getElementById("chat-input").addEventListener("keypress", function(event) {
+        //     if (event.key === "Enter") {
+        //         sendMessage();
+        //     }
+        // });
 
         // Updated microphone functionality
-        document.getElementById("mic-button").addEventListener("click", async function() {
-            const micAnimation = document.getElementById("mic-animation");
-            const chatBody = document.querySelector(".chatbot-body");
+        // document.getElementById("mic-button").addEventListener("click", async function() {
+        //     const micAnimation = document.getElementById("mic-animation");
+        //     const chatBody = document.querySelector(".chatbot-body");
             
-            try {
-                // Show animation
-                micAnimation.style.display = "block";
-                chatBody.style.opacity = "0.3";
+        //     try {
+        //         // Show animation
+        //         micAnimation.style.display = "block";
+        //         chatBody.style.opacity = "0.3";
                 
-                const response = await fetch('http://localhost:5000/mic', {
-                    method: 'POST'
-                });
-                const data = await response.json();
+        //         const response = await fetch('http://localhost:5000/mic', {
+        //             method: 'POST'
+        //         });
+        //         const data = await response.json();
                 
-                // Hide animation
-                micAnimation.style.display = "none";
-                chatBody.style.opacity = "1";
+        //         // Hide animation
+        //         micAnimation.style.display = "none";
+        //         chatBody.style.opacity = "1";
                 
-                if (data.transcription && data.transcription !== "Could not understand audio") {
-                    document.getElementById("chat-input").value = data.transcription;
-                    sendMessage();
-                } else {
-                    appendMessage("System: " + (data.transcription || "Could not capture audio"));
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                appendMessage("System: Error accessing microphone");
-                // Hide animation on error
-                micAnimation.style.display = "none";
-                chatBody.style.opacity = "1";
-            }
-        });
+        //         if (data.transcription && data.transcription !== "Could not understand audio") {
+        //             document.getElementById("chat-input").value = data.transcription;
+        //             sendMessage();
+        //         } else {
+        //             appendMessage("System: " + (data.transcription || "Could not capture audio"));
+        //         }
+        //     } catch (error) {
+        //         console.error('Error:', error);
+        //         appendMessage("System: Error accessing microphone");
+        //         // Hide animation on error
+        //         micAnimation.style.display = "none";
+        //         chatBody.style.opacity = "1";
+        //     }
+        // });
     </script>
 </body>
 
