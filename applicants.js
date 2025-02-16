@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 const rejectButton = applicantCard.querySelector(".reject-button");
 
                 acceptButton.addEventListener("click", () => {
-                    handleApplicantAction(index, "accept");
+                    handleApplicantAction(index, "accept", applicantContactNumber);
                 });
 
                 rejectButton.addEventListener("click", () => {
@@ -84,9 +84,14 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Function to handle Accept/Reject actions
-    function handleApplicantAction(index, action) {
+    function handleApplicantAction(index, action, applicantContactNumber) {
         // Remove the applicant from the logged-in user's applicants list
         loggedInUser.applicants.splice(index, 1);
+
+        // If the action is "accept", add the applicant to the selectedapplicants list
+        if (action === "accept") {
+            loggedInUser.selectedapplicants.push(applicantContactNumber);
+        }
 
         // Update the registrations in localStorage
         const updatedRegistrations = registrations.map((reg) =>
